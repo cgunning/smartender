@@ -9,8 +9,8 @@ class Led:
         self.flow_rate = flow_rate
         GPIO.setup(pin, GPIO.OUT)
     
-    def run(self, time):
+    def run(self, time_to_glow):
         GPIO.output(self.pin, GPIO.HIGH)
-        time.sleep(self.flow_rate*time)
+        time.sleep(self.flow_rate*time_to_glow)
         GPIO.output(self.pin, GPIO.LOW)
-        print("hej " + str(self.pin) + " " + str(self.flow_rate*time))
+        print("hej " + str(self.pin) + " " + str(self.flow_rate*time_to_glow))
