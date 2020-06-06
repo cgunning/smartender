@@ -88,6 +88,7 @@ class rgbled:
                         time.sleep(speed)
             else:
                     down = self.blueprev - blue
+                    print("blueprev = " + str(self.blueprev) + "blue = " + str(blue))
                     if down < 0:
                         down = 0
                     for x in range (0,down):
