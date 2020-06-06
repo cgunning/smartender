@@ -85,7 +85,7 @@ class rgbled:
                         if self.greenprev - x < 0:
                             self.GREEN.ChangeDutyCycle(0)
                         if self.greenprev - x > 100:
-                            self.GREEN.ChangeDutyCycle(0)
+                            self.GREEN.ChangeDutyCycle(100)
                         else:
                             self.GREEN.ChangeDutyCycle(self.greenprev - x )
                             time.sleep(speed)
