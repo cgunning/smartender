@@ -1,1 +1,2 @@
-nohup python3 app.py
+pkill -f 'app.py'
+nohup python3 app.py >> /home/pi/log
