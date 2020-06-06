@@ -126,4 +126,3 @@ class rgbled:
             self.RED.stop()
             self.GREEN.stop()
             self.BLUE.stop()
-            GPIO.cleanup()
