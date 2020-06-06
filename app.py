@@ -11,7 +11,7 @@ led = rgbled(17,27,22)
 
 @app.route("/")
 def hello():
-    led.cleanup()
+    led.off(0.5)
     while True:
         r = randint(0,100)
         g = randint(0,100)
@@ -23,7 +23,7 @@ def hello():
 
 @app.route("/drink")
 def drink():
-    led.cleanup()
+    led.off(0.5)
     while True:
         r = randint(0,100)
         g = randint(0,100)
