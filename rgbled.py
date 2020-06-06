@@ -64,9 +64,10 @@ class rgbled:
                         down = 0
                     for x in range (0,down):
                         if self.redprev - x < 0:
-                            continue
-                        self.RED.ChangeDutyCycle(self.redprev - x )
-                        time.sleep(speed)
+                            self.RED.ChangeDutyCycle(0)
+                        else:
+                            self.RED.ChangeDutyCycle(self.redprev - x )
+                            time.sleep(speed)
             self.redprev = red
 
     def changegreen(self,green,speed):
@@ -80,9 +81,10 @@ class rgbled:
                         down = 0
                     for x in range (0,down):
                         if self.redprev - x < 0:
-                            continue
-                        self.GREEN.ChangeDutyCycle(self.greenprev - x )
-                        time.sleep(speed)
+                            self.GREEN.ChangeDutyCycle(0)
+                        else:
+                            self.GREEN.ChangeDutyCycle(self.greenprev - x )
+                            time.sleep(speed)
             self.greenprev = green
 
     def changeblue(self,blue,speed):
@@ -96,9 +98,10 @@ class rgbled:
                         down = 0
                     for x in range (0,down):
                         if self.redprev - x < 0:
-                            continue
-                        self.BLUE.ChangeDutyCycle(self.blueprev - x )
-                        time.sleep(speed)
+                            self.BLUE.ChangeDutyCycle(0)
+                        else:
+                            self.BLUE.ChangeDutyCycle(self.blueprev - x )
+                            time.sleep(speed)
             self.blueprev = blue
 
     def on(self,r,g,b,speed):
