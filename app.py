@@ -11,25 +11,17 @@ led = rgbled(17,27,22)
 
 @app.route("/")
 def hello():
-    led.off(0.5)
-    while True:
-        r = randint(0,100)
-        g = randint(0,100)
-        b = randint(0,100) 
-        led.changeto(r,g,b,0.8)
-        time.sleep(2)
     return "Hello World!"
     
 
 @app.route("/drink")
 def drink():
-    led.off(0.5)
     while True:
         r = randint(0,100)
         g = randint(0,100)
         b = randint(0,100) 
         led.changeto(r,g,b,0.8)
-        time.sleep(0.2)
+        time.sleep(0.5)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0")
