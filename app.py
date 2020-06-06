@@ -1,7 +1,8 @@
 from flask import Flask
 from classes import Led
+import RPi.GPIO as GPIO
 app = Flask(__name__)
-
+GPIO.setmode(GPIO.BCM)
 pump1 = Led.Led(17, 4)
 
 @app.route("/")
