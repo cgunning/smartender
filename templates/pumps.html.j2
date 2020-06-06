@@ -1,0 +1,17 @@
+<html>
+<header>
+<style>
+</style>
+
+<script>
+</script>
+</header>
+<body>
+{% for drink in drinks %}
+<p onclick='pour("{{ drink["key"] }}")'>{{ drink["name"] }}</p>
+{% endfor %}
+<div id="Progress_Status"> 
+  <div id="myprogressBar"></div> 
+</div> 
+</body>
+</html>

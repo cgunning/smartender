@@ -1,0 +1,56 @@
+<html>
+<header>
+<style>
+#Progress_Status { 
+  width: 50%; 
+  background-color: #ddd; 
+} 
+  
+#myprogressBar { 
+  width: 0%; 
+  height: 35px; 
+  background-color: #4CAF50; 
+  text-align: center; 
+  line-height: 32px; 
+  color: black; 
+} 
+</style>
+
+<script>
+function pour(drink) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      update(this.responseText)
+    }
+  };
+  xhttp.open("POST", "/pour", true);
+  xhttp.setRequestHeader("Content-Type", "application/json")
+  xhttp.send(JSON.stringify({"drink": drink}));
+}
+
+function update(duration) { 
+  var element = document.getElementById("myprogressBar");    
+  var width = 1;
+  var identity = setInterval(scene, 10); 
+  function scene() { 
+    width+=100/duration/100;  
+    if (width >= 100) { 
+      clearInterval(identity); 
+      element.style.width = '100%'; 
+    } else { 
+      element.style.width = width + '%';  
+    } 
+  } 
+} 
+</script>
+</header>
+<body>
+{% for drink in drinks %}
+<p onclick='pour("{{ drink["key"] }}")'>{{ drink["name"] }}</p>
+{% endfor %}
+<div id="Progress_Status"> 
+  <div id="myprogressBar"></div> 
+</div> 
+</body>
+</html>
