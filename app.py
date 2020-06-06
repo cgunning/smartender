@@ -11,6 +11,8 @@ led = rgbled(17,27,22)
 
 @app.route("/")
 def hello():
+    led.off(0.8)
+    led.cleanup()
     return "Hello World!"
     
 
