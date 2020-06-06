@@ -1,7 +1,7 @@
 from flask import Flask
 #from classes import Led
 import RPi.GPIO as GPIO
-from rgbled import rgbled
+from classes import rgbled
 from random import randint
 import time
 
