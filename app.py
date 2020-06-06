@@ -18,7 +18,6 @@ def hello():
 
 @app.route("/drink")
 def drink():
-    led.on(17,27,22,0.8)
     while True:
         r = randint(0,100)
         g = randint(0,100)
