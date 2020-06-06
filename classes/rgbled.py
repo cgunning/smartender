@@ -8,7 +8,7 @@ class rgbled:
             self.rpin = rpin
             self.gpin = gpin
             self.bpin = bpin
-            self.freq = 99
+            self.freq = 100
             self.setup(self.rpin,self.gpin,self.bpin,self.freq)
 
 
