@@ -18,12 +18,12 @@ def hello():
 @app.route("/drink")
 def drink():
     try:
-    while True:
-        r = randint(0,100)
-        g = randint(0,100)
-        b = randint(0,100)
-        pump1.changeto(r,g,b,0.8)
-        time.sleep(2)
+        while True:
+            r = randint(0,100)
+            g = randint(0,100)
+            b = randint(0,100)
+            pump1.changeto(r,g,b,0.8)
+            time.sleep(2)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0")
