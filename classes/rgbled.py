@@ -60,6 +60,8 @@ class rgbled:
                         time.sleep(speed)
             else:
                     down = self.redprev - red
+                    if down < 0:
+                        down = 0
                     for x in range (0,down):
                         self.RED.ChangeDutyCycle(self.redprev - x )
                         time.sleep(speed)
@@ -72,6 +74,8 @@ class rgbled:
                         time.sleep(speed)
             else:
                     down = self.greenprev - green
+                    if down < 0:
+                        down = 0
                     for x in range (0,down):
                         self.GREEN.ChangeDutyCycle(self.greenprev - x )
                         time.sleep(speed)
@@ -84,6 +88,8 @@ class rgbled:
                         time.sleep(speed)
             else:
                     down = self.blueprev - blue
+                    if down < 0:
+                        down = 0
                     for x in range (0,down):
                         self.BLUE.ChangeDutyCycle(self.blueprev - x )
                         time.sleep(speed)
