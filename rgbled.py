@@ -92,6 +92,7 @@ class rgbled:
                     if down < 0:
                         down = 0
                     for x in range (0,down):
+                        print(x)
                         self.BLUE.ChangeDutyCycle(self.blueprev - x )
                         time.sleep(speed)
             self.blueprev = blue
