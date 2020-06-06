@@ -68,6 +68,7 @@ class rgbled:
                         if self.redprev - x > 100:
                             self.RED.ChangeDutyCycle(100)
                         else:
+                            print("red: " + str(self.redprev - x))
                             self.RED.ChangeDutyCycle(self.redprev - x )
                             time.sleep(speed)
             self.redprev = red
@@ -87,6 +88,7 @@ class rgbled:
                         if self.greenprev - x > 100:
                             self.GREEN.ChangeDutyCycle(100)
                         else:
+                            print("green: " + str(self.greenprev - x))
                             self.GREEN.ChangeDutyCycle(self.greenprev - x )
                             time.sleep(speed)
             self.greenprev = green
@@ -106,6 +108,7 @@ class rgbled:
                         if self.blueprev - x > 100:
                             self.BLUE.ChangeDutyCycle(100)
                         else:
+                            print("blue: " + str(self.blueprev - x))
                             self.BLUE.ChangeDutyCycle(self.blueprev - x )
                             time.sleep(speed)
             self.blueprev = blue
