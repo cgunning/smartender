@@ -49,9 +49,9 @@ class rgbled:
             rs = speed/rx
             gs = speed/gx
             bs = speed/bx
-            thread.start_new_thread(self.changered,(r,rs))
-            thread.start_new_thread(self.changegreen,(g,gs))
-            thread.start_new_thread(self.changeblue,(b,bs))
+            _thread.start_new_thread(self.changered,(r,rs))
+            _thread.start_new_thread(self.changegreen,(g,gs))
+            _thread.start_new_thread(self.changeblue,(b,bs))
 
     def changered(self,red,speed):
             if(red > self.redprev):
