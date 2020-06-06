@@ -65,7 +65,7 @@ class rgbled:
                     for x in range (0,down):
                         if (self.redprev - x) <= 0:
                             self.RED.ChangeDutyCycle(0)
-                        if (self.redprev - x) >= 100:
+                        elif (self.redprev - x) >= 100:
                             self.RED.ChangeDutyCycle(100)
                         else:
                             print("red: " + str(self.redprev - x))
@@ -85,7 +85,7 @@ class rgbled:
                     for x in range (0,down):
                         if (self.greenprev - x) <= 0:
                             self.GREEN.ChangeDutyCycle(0)
-                        if (self.greenprev - x) >= 100:
+                        elif (self.greenprev - x) >= 100:
                             self.GREEN.ChangeDutyCycle(100)
                         else:
                             print("green: " + str(self.greenprev - x))
@@ -105,7 +105,7 @@ class rgbled:
                     for x in range (0,down):
                         if (self.blueprev - x) <= 0:
                             self.BLUE.ChangeDutyCycle(0)
-                        if (self.blueprev - x) >= 100:
+                        elif (self.blueprev - x) >= 100:
                             self.BLUE.ChangeDutyCycle(100)
                         else:
                             print("blue: " + str(self.blueprev - x))
