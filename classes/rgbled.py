@@ -1,7 +1,7 @@
 import random, time
 import RPi.GPIO as GPIO
 import math
-import thread
+import _thread
 
 class rgbled:
     def __init__(self,rpin,gpin,bpin):
