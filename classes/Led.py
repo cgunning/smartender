@@ -1,4 +1,5 @@
-# import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO
+import time
 
 class Led:
     pin = 0
@@ -8,7 +9,7 @@ class Led:
         self.flow_rate = flow_rate
     
     def run(self, time):
-        # GPIO.output(self.pin, GPIO.HIGH)
-        # #TODO wait
-        # GPIO.output(self.pin, GPIO.LOW)
+        GPIO.output(self.pin, GPIO.HIGH)
+        time.sleep(self.flow_rate*time)
+        GPIO.output(self.pin, GPIO.LOW)
         print("hej " + str(self.pin) + " " + str(self.flow_rate*time))
