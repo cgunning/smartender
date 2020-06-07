@@ -26,6 +26,7 @@ body {
   overflow: auto;
   padding-right: 20px;
   mask: url(#masking);
+  /* TODO: This is the gradient but it only shows on top. Need to fix */
   -webkit-mask-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.5, black), color-stop(1, transparent));
 }
 
@@ -51,7 +52,10 @@ body {
 
 .wrap-container ul li:last-of-type { padding-bottom: 50px; }
 
-.wrap-container ul li.active .item { transform: scale(1.9); }
+.wrap-container ul li.active .item {
+  transform: scale(1.9);
+  transition: transform .3s;
+}
 
 .wrap-container ul li .item {
   position: relative;
