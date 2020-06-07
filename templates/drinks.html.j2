@@ -46,6 +46,7 @@ function update(duration) {
 </script>
 </header>
 <body>
+{% include 'menu.html' %}
 {% for drink in drinks %}
 <p onclick='pour("{{ drink["key"] }}")'>{{ drink["name"] }}</p>
 {% endfor %}

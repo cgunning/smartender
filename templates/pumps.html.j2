@@ -2,16 +2,40 @@
 <header>
 <style>
 </style>
-
 <script>
+function updatePump(pump, drink) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      // Show that it went well?
+    }
+  };
+  xhttp.open("POST", "/pump", true);
+  xhttp.setRequestHeader("Content-Type", "application/json")
+  xhttp.send(JSON.stringify({"pump": pump, "drink": drink}));
+}
+
+function onDrinkSelected(selectObject) {
+  var value = selectObject.value;
+  var id = selectObject.id;
+  updatePump(id, value);
+}
 </script>
 </header>
 <body>
-{% for drink in drinks %}
-<p onclick='pour("{{ drink["key"] }}")'>{{ drink["name"] }}</p>
+{% include 'menu.html' %}
+{% for pump, config in pumpConfig.items() %}
+<p>{{ config["name"] }}</p>
+<select name="{{ pump }}" id="{{ pump }}" onchange="onDrinkSelected(this)">
+{% for drinkOption in drinkOptions %}
+{% if config["value"] == drinkOption["value"] %}
+  <option value="{{ drinkOption["value"] }}" selected>{{ drinkOption["name"] }}</option>
+{% else %}
+  <option value="{{ drinkOption["value"] }}">{{ drinkOption["name"] }}</option>
+{% endif %}
 {% endfor %}
-<div id="Progress_Status"> 
-  <div id="myprogressBar"></div> 
-</div> 
+</select>
+{% endfor %}
+
 </body>
 </html>

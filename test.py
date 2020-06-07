@@ -25,8 +25,12 @@ def pourDrink():
 
 @app.route('/pumps', methods=['GET'])
 def getPumps():
-    return json.dumps(bartender.getSupportedDrinks(), indent=2)
+    return render_template('pumps.html.j2', pumpConfig=bartender.getPumpConfig(), drinkOptions=bartender.getDrinkOptions())
 
+@app.route('/pump', methods=['POST'])
+def updatePump():
+    bartender.updatePumpDrink(request.json["pump"], request.json["drink"])
+    return ""
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0")

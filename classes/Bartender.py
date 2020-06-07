@@ -33,8 +33,11 @@ class Bartender:
     def getSupportedDrinks(self):
         return self.supportedDrinks
 
-    def getPumps(self):
+    def getPumpConfig(self):
         return self.pumpConfig
+
+    def getDrinkOptions(self):
+        return self.drinkOptions
     
     def setupPumps(self):
         for _, config in self.pumpConfig.items():
