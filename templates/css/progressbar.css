@@ -2,13 +2,14 @@
   width: 50%; 
   background-color: #ddd; 
   margin: auto;
-  top: 150px;
+  top: 45%;
+  height: 10%;
   position: relative;
 } 
   
 #myprogressBar { 
   width: 0%; 
-  height: 35px; 
+  height: 100%; 
   background-color: #4CAF50; 
   text-align: center; 
   line-height: 32px; 

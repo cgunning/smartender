@@ -12,9 +12,10 @@ function pour(drink) {
 
 function update(duration) { 
   var element = document.getElementById("myprogressBar");
+  var container = document.getElementById("Progress_Status");
   var menu = document.getElementById("scroll-container");
   menu.hidden = true;
-  element.hidden = false;   
+  container.hidden = false;   
   var width = 1;
   var identity = setInterval(scene, 10); 
   function scene() { 
@@ -22,7 +23,7 @@ function update(duration) {
     if (width >= 100) { 
       clearInterval(identity); 
       element.style.width = '100%'; 
-      element.hidden = true;
+      container.hidden = true;
       menu.hidden = false;
     } else { 
       element.style.width = width + '%';  
