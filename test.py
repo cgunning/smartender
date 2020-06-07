@@ -14,7 +14,7 @@ def hello():
 
 @app.route('/drinks', methods=['GET'])
 def getDrink():
-    return render_template('drinks.html.j2', drinks=bartender.getSupportedDrinks())
+    return render_template('drinks2.html.j2', drinks=bartender.getSupportedDrinks())
 
 
 @app.route('/pour', methods=['POST'])
