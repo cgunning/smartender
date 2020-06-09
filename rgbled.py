@@ -2,34 +2,55 @@ import random, time
 import RPi.GPIO as GPIO
 import math
 import _thread
+import threading
+from random import randint
+
 
 class rgbled:
+    _FINISH = False
+    RED = None
+    GREEN = None
+    BLUE = None
+    speed = 0.8
+
     def __init__(self,rpin,gpin,bpin):
             self.rpin = rpin
             self.gpin = gpin
             self.bpin = bpin
             self.freq = 100
-            self.setup(self.rpin,self.gpin,self.bpin,self.freq)
-
-
-    def setup(self,rpin,gpin,bpin,freq):
             GPIO.setwarnings(False)
             GPIO.setmode(GPIO.BCM)
             GPIO.setup(rpin, GPIO.OUT)
             GPIO.setup(gpin, GPIO.OUT)
             GPIO.setup(bpin, GPIO.OUT)
-            self.RED = GPIO.PWM(rpin, freq)
-            self.RED.start(0)
-            self.GREEN = GPIO.PWM(gpin, freq)
-            self.GREEN.start(0)
-            self.BLUE = GPIO.PWM(bpin, freq)
-            self.BLUE.start(0)
-            self.frequency = freq
+            self.RED = GPIO.PWM(rpin, self.freq)
+            self.GREEN = GPIO.PWM(gpin, self.freq)
+            self.BLUE = GPIO.PWM(bpin, self.freq)
             self.redprev = 1
             self.greenprev = 1
             self.blueprev = 1
-            
+            self.RED.start(0)
+            self.GREEN.start(0)
+            self.BLUE.start(0)
+
+
+    def run(self):
+        t = threading.Thread(target=self.changeColor)
+        t.start()
+
+    def changeColor(self):
+        while True:
+            r = randint(0,100)
+            g = randint(0,100)
+            b = randint(0,100)
+            self.changeto(r,g,b,1/self.speed)
+            time.sleep(1/self.speed)
+
+    def setSpeed(self, speed):
+        self.speed = speed
+
     def changeto(self,redv,greenv,bluev,speed):
+            
             GPIO.setwarnings(False)
             r = redv
             g = greenv
@@ -49,13 +70,25 @@ class rgbled:
             rs = speed/rx
             gs = speed/gx
             bs = speed/bx
-            _thread.start_new_thread(self.changered,(r,rs))
-            _thread.start_new_thread(self.changegreen,(g,gs))
-            _thread.start_new_thread(self.changeblue,(b,bs))
+            
+            rt = threading.Thread(target=self.changered, args=(r,rs))
+            gt = threading.Thread(target=self.changegreen, args=(g,gs))
+            bt = threading.Thread(target=self.changeblue, args=(b,bs))
+            rt.start()
+            gt.start()
+            bt.start()
+            rt.join()
+            gt.join()
+            bt.join()
+            #_thread.start_new_thread(self.changered,(r,rs))
+            #_thread.start_new_thread(self.changegreen,(g,gs))
+            #_thread.start_new_thread(self.changeblue,(b,bs))
 
     def changered(self,red,speed):
             if(red > self.redprev):
                     for x in range (self.redprev,red):
+                        if self._FINISH:
+                            break
                         self.RED.ChangeDutyCycle(x)
                         time.sleep(speed)
             else:
@@ -63,7 +96,9 @@ class rgbled:
                     if down < 0:
                         down = 0
                     for x in range (0,down):
-                        if (self.redprev - x) <= 0:
+                        if self._FINISH:
+                            break
+                        elif (self.redprev - x) <= 0:
                             self.RED.ChangeDutyCycle(0)
                         elif (self.redprev - x) >= 100:
                             self.RED.ChangeDutyCycle(100)
@@ -75,6 +110,8 @@ class rgbled:
     def changegreen(self,green,speed):
             if(green > self.greenprev):
                     for x in range (self.greenprev,green):
+                        if self._FINISH:
+                            break
                         self.GREEN.ChangeDutyCycle(x)
                         time.sleep(speed)
             else:
@@ -82,7 +119,9 @@ class rgbled:
                     if down < 0:
                         down = 0
                     for x in range (0,down):
-                        if (self.greenprev - x) <= 0:
+                        if self._FINISH:
+                            break
+                        elif (self.greenprev - x) <= 0:
                             self.GREEN.ChangeDutyCycle(0)
                         elif (self.greenprev - x) >= 100:
                             self.GREEN.ChangeDutyCycle(100)
@@ -94,6 +133,8 @@ class rgbled:
     def changeblue(self,blue,speed):
             if(blue > self.blueprev):
                     for x in range (self.blueprev,blue):
+                        if self._FINISH:
+                            break
                         self.BLUE.ChangeDutyCycle(x)
                         time.sleep(speed)
             else:
@@ -101,7 +142,9 @@ class rgbled:
                     if down < 0:
                         down = 0
                     for x in range (0,down):
-                        if (self.blueprev - x) <= 0:
+                        if self._FINISH:
+                            break
+                        elif (self.blueprev - x) <= 0:
                             self.BLUE.ChangeDutyCycle(0)
                         elif (self.blueprev - x) >= 100:
                             self.BLUE.ChangeDutyCycle(100)
@@ -123,6 +166,12 @@ class rgbled:
             self.BLUE.stop()
 
     def cleanup(self):
-            self.RED.stop()
-            self.GREEN.stop()
-            self.BLUE.stop()
+        self.RED.ChangeDutyCycle(0)
+        self.GREEN.ChangeDutyCycle(0)
+        self.BLUE.ChangeDutyCycle(0)
+            #self.RED.stop()
+            #self.GREEN.stop()
+            #self.BLUE.stop()
+
+    def turnoff(self, condition):
+            self._FINISH = condition

@@ -4,27 +4,32 @@ import RPi.GPIO as GPIO
 from rgbled import rgbled
 from random import randint
 import time
+import threading
 
 app = Flask(__name__)
 GPIO.setmode(GPIO.BCM)
 led = rgbled(17,27,22)
 
+
 @app.route("/")
 def hello():
-    led.off(0.8)
-    led.cleanup()
-    return "Hello World!"
-    
+    return("Hello World!")
 
 @app.route("/drink")
 def drink():
-    while True:
-        r = randint(0,100)
-        g = randint(0,100)
-        b = randint(0,100) 
-        led.changeto(r,g,b,0.8)
-        time.sleep(0.5)
+
+    return("drink")
+
+@app.route("/slow")
+def slow():
+    led.setSpeed(0.8)
+    return("slow")
+
+@app.route("/fast")
+def fast():
+    led.setSpeed(200)
+    return("fast")
 
 if __name__ == "__main__":
+    led.run()
     app.run(host="0.0.0.0")
-
