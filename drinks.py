@@ -91,6 +91,13 @@ drinkList = [
 			"rum": 45,
 			"oj": 60
 		}
+	}, {
+		"name": "Vodka Tonic",
+    "key": "cs",
+		"ingredients": {
+			"vodka": 50,
+			"tonic": 150
+		}
 	}
 ]
 
