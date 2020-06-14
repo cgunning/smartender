@@ -66,7 +66,7 @@ class Bartender:
         threads = []
         for drink in self.supportedDrinks:
             if drink["key"] == drinkKey:
-                led.setSpeed(200)
+                self.led.setSpeed(200)
                 for ingredient, amount in drink["ingredients"].items():
                     print(ingredient + ":")
                     threads.append(self.pumps[ingredient].pour(amount))
@@ -74,5 +74,6 @@ class Bartender:
                 break
         for thread in threads:
             thread.join()
+        self.led.setSpeed(0.8)
 
         return drinkFound
