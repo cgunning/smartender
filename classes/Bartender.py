@@ -1,8 +1,9 @@
 import json
 from classes import Pump
+from classes import rgbled
 
 class Bartender:
-
+    led = rgbled(17,27,22)
     pumpConfig = json.load(open("config/pump_config.json"))
     drinkList = None
     drinkOptions = None
@@ -15,7 +16,7 @@ class Bartender:
         self.drinkOptions = drinkOptions
         self.populateSupportedDrinks()
         self.setupPumps()
-       
+        self.led.run()
 
     def populateSupportedDrinks(self):
         self.supportedDrinks = []
@@ -62,11 +63,16 @@ class Bartender:
 
     def pour(self, drinkKey):
         drinkFound = False
+        threads = []
         for drink in self.supportedDrinks:
             if drink["key"] == drinkKey:
+                led.setSpeed(200)
                 for ingredient, amount in drink["ingredients"].items():
                     print(ingredient + ":")
-                    self.pumps[ingredient].pour(amount)
+                    threads.append(self.pumps[ingredient].pour(amount))
                 drinkFound = True
                 break
+        for thread in threads:
+            thread.join()
+
         return drinkFound

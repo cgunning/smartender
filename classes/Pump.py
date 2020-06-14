@@ -14,7 +14,7 @@ class Pump:
         return amount/self.flowRate*60
 
     def pour(self, amount):
-        t = threading.Thread(target=self.pourInternal, args=(amount))
+        t = threading.Thread(target=self.pourInternal, args=(amount,))
         t.start()
         return t # returning thread in case we want to wait for it to be done in calling function
 
