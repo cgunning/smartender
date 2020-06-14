@@ -5,6 +5,8 @@ import json
 from flask import Flask, render_template, request
 app = Flask(__name__)
 
+import RPi.GPIO as GPIO
+GPIO.setmode(GPIO.BCM)
 bartender = Bartender.Bartender(drinkList, drinkOptions)
 
 
@@ -21,6 +23,7 @@ def getDrink():
 def pourDrink():
     print(request.json["drink"])
     # bartender.pour
+    bartender.pour(request.json["drink"])
     return str(int(bartender.getEstimatedPourTime(request.json["drink"])))
 
 @app.route('/pumps', methods=['GET'])

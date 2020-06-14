@@ -98,7 +98,15 @@ drinkList = [
 			"vodka": 50,
 			"tonic": 150
 		}
+	}, {
+		"name": "saft",
+    "key": "saft",
+		"ingredients": {
+			"vodka": 10,
+			"oj": 90
+		}
 	}
+	
 ]
 
 drinkOptions = [

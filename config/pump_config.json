@@ -1,14 +1,14 @@
 {
   "pump_1": {
     "name": "Pump 1",
-    "pin": 17,
-    "flow_rate": 100,
-    "value": "gin"
+    "pin": 23,
+    "flow_rate": 400,
+    "value": "oj"
   },
   "pump_2": {
     "name": "Pump 2",
-    "pin": 5,
-    "flow_rate": 100,
+    "pin": 24,
+    "flow_rate": 150,
     "value": "vodka"
   },
   "pump_3": {
@@ -27,7 +27,7 @@
     "name": "Pump 5",
     "pin": 5,
     "flow_rate": 400,
-    "value": "oj"
+    "value": "bah"
   },
   "pump_6": {
     "name": "Pump 6",
