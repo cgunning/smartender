@@ -1,4 +1,5 @@
 import json
+import threading
 from classes import Pump
 from classes import rgbled
 
@@ -59,9 +60,13 @@ class Bartender:
                     pourTime = max(pourTime, self.pumps[ingredient].getEstimatedPourTime(amount))
                 break
         return pourTime
-            
 
     def pour(self, drinkKey):
+        t = threading.Thread(target=self.pourInternal, args=(drinkKey,))
+        t.start()
+        return t
+
+    def pourInternal(self, drinkKey):
         drinkFound = False
         threads = []
         for drink in self.supportedDrinks:

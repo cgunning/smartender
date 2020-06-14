@@ -2,10 +2,10 @@
 from classes import Bartender
 from drinks import drinkList, drinkOptions
 import json
-from flask import Flask, render_template, request
-app = Flask(__name__)
-
 import RPi.GPIO as GPIO
+from flask import Flask, render_template, request
+
+app = Flask(__name__)
 GPIO.setmode(GPIO.BCM)
 bartender = Bartender.Bartender(drinkList, drinkOptions)
 
