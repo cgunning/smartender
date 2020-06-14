@@ -3,7 +3,7 @@ from classes import Pump
 from classes import rgbled
 
 class Bartender:
-    led = rgbled(17,27,22)
+    led = rgbled.rgbled(17,27,22)
     pumpConfig = json.load(open("config/pump_config.json"))
     drinkList = None
     drinkOptions = None
