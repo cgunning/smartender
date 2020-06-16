@@ -11,14 +11,14 @@ body {
   max-width: 100%;
   margin: auto;
   height: 50vh;
-  top: 150px;
+  top: 50px;
   position: relative;
   min-height: 200px;
 }
 
 .wrap-container {
   position: relative;
-  max-height: 200px;
+  max-height: 400px;
   width: 100%;
   max-width: 100%;
   margin: auto;
@@ -27,13 +27,16 @@ body {
   padding-right: 20px;
   mask: url(#masking);
   /* TODO: This is the gradient but it only shows on top. Need to fix */
-  -webkit-mask-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.5, black), color-stop(1, transparent));
+  -webkit-mask-image: -webkit-gradient(linear, left bottom, left top, color-stop(80%, black), color-stop(100%, transparent));
+  -webkit-mask-image: -webkit-gradient(linear, center bottom, center top, from(transparent), color-stop(60%,black), color-stop(80%, black), to(transparent));
+
 }
 
 .wrap-container ul {
   list-style: none;
   position: relative;
   transition: transform .3s;
+  font-size: 200%;
   top: 50px;
 }
 
@@ -53,7 +56,7 @@ body {
 .wrap-container ul li:last-of-type { padding-bottom: 50px; }
 
 .wrap-container ul li.active .item {
-  transform: scale(1.9);
+  transform: scale(2);
   transition: transform .3s;
 }
 

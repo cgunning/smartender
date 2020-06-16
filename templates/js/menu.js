@@ -18,10 +18,10 @@ function scrollWrap() {
     if (itemsScrolled < listOpts.items.length) {
         listOpts.items[itemsScrolled].classList.add('active');
     }
-    if(itemsScrolled < listOpts.items.length/3) {
+    if(itemsScrolled < 2) {
         this.scrollTop = this.scrollTop + (listOpts.itemCount/3 * listOpts.itemHeight)
         console.log("Too low. Changed from " + this.scrollTop + " to " + this.scrollTop + (listOpts.itemCount * listOpts.itemHeight))
-    } else if (itemsScrolled > 2*listOpts.items.length/3) {
+    } else if (itemsScrolled > listOpts.items.length - 3) {
         this.scrollTop = this.scrollTop - (listOpts.itemCount/3 * listOpts.itemHeight)
         console.log("Too high. Changed from " + this.scrollTop + " to " + this.scrollTop - (listOpts.itemCount * listOpts.itemHeight))
     }
