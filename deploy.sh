@@ -1,1 +1,2 @@
-ssh pi@192.168.8.119 "cd smartender; git pull; ./install.sh; ./run.sh; exit"
+scp -r * pi@192.168.0.10:~/smartender/
+ssh pi@192.168.0.10 "cd smartender; ./install.sh; ./run.sh; exit"
