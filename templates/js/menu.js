@@ -7,7 +7,7 @@ var listOpts = {
     items: []
 };
 function scrollWrap() {
-    itemsScrolled = Math.ceil((this.scrollTop + listOpts.itemHeight*2) / listOpts.itemHeight);
+    itemsScrolled = Math.ceil((this.scrollTop + listOpts.itemHeight) / listOpts.itemHeight);
     listOpts.items.forEach(function (ele) {
         ele.classList.remove('active');
     });

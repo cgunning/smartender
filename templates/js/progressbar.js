@@ -27,7 +27,7 @@ function animateRandom() {
   var scrollW = document.getElementById('wrap-scroll');
   
 
-  target = (index - 2)*items[0].clientHeight - scrollW.scrollTop;
+  target = (index - 1)*items[0].clientHeight - scrollW.scrollTop;
   target = target + items.length * items[0].clientHeight;
   var delta = 2;
   var slowDown = false;
