@@ -1,3 +1,11 @@
+import os
+import sys
+import fake_rpi
+
+if os.environ['ENV'] == "dev":
+    sys.modules['RPi'] = fake_rpi.RPi     # Fake RPi
+    sys.modules['RPi.GPIO'] = fake_rpi.RPi.GPIO # Fake GPIO
+    sys.modules['smbus'] = fake_rpi.smbus # Fake smbus (I2C)
 
 from classes import Bartender
 from drinks import drinkList, drinkOptions
@@ -16,13 +24,12 @@ def hello():
 
 @app.route('/drinks', methods=['GET'])
 def getDrink():
-    return render_template('drinks2.html.j2', drinks=bartender.getSupportedDrinks())
+    return render_template('drinks.html.j2', drinks=bartender.getSupportedDrinks())
 
 
 @app.route('/pour', methods=['POST'])
 def pourDrink():
     print(request.json["drink"])
-    # bartender.pour
     bartender.pour(request.json["drink"])
     return str(int(bartender.getEstimatedPourTime(request.json["drink"])))
 

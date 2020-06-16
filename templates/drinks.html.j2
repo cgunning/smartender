@@ -1,57 +1,36 @@
 <html>
-<header>
+<head>
+<title>Infinite List Scrolling Effect Demo</title>
 <style>
-#Progress_Status { 
-  width: 50%; 
-  background-color: #ddd; 
-} 
-  
-#myprogressBar { 
-  width: 0%; 
-  height: 35px; 
-  background-color: #4CAF50; 
-  text-align: center; 
-  line-height: 32px; 
-  color: black; 
-} 
+{% include 'css/menu.css' %}
+{% include 'css/progressbar.css' %}
+{% include 'css/drinks.css' %}
 </style>
-
 <script>
-function pour(drink) {
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      update(this.responseText)
-    }
-  };
-  xhttp.open("POST", "/pour", true);
-  xhttp.setRequestHeader("Content-Type", "application/json")
-  xhttp.send(JSON.stringify({"drink": drink}));
-}
-
-function update(duration) { 
-  var element = document.getElementById("myprogressBar");    
-  var width = 1;
-  var identity = setInterval(scene, 10); 
-  function scene() { 
-    width+=100/duration/100;  
-    if (width >= 100) { 
-      clearInterval(identity); 
-      element.style.width = '100%'; 
-    } else { 
-      element.style.width = width + '%';  
-    } 
-  } 
-} 
+{% include 'js/progressbar.js' %}
 </script>
-</header>
+</head>
 <body>
-{% include 'menu.html' %}
-{% for drink in drinks %}
-<p onclick='pour("{{ drink["key"] }}")'>{{ drink["name"] }}</p>
-{% endfor %}
-<div id="Progress_Status"> 
+<div id="fullscreenbutton" onclick="document.body.requestFullscreen()"></div>
+<div id="scroll-container">
+  <div class="wrap-container" id="wrap-scroll">
+    <ul id="ul-scroll">
+      {% for i in range(3) %}
+      {% for drink in drinks %}
+      <li><span id="{{ drink["key"] }}" onclick='pour(this)' class="item">{{ drink["name"] }}</span></li>
+      {% endfor %}
+      <li><span id="random" onclick='pour(this)' class="item">Random drink</span></li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+<script>
+{% include 'js/menu.js' %}
+</script>
+<div id="Progress_Status" hidden> 
   <div id="myprogressBar"></div> 
-</div> 
+</div>
+<div id="Progress_Text" hidden>
+</div>
 </body>
 </html>

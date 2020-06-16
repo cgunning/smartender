@@ -62,3 +62,15 @@ body {
   transition: transform 200ms;
   display: inline-block;
 }
+
+body:fullscreen {
+  background-color:#31C0CC;
+}
+
+body:-webkit-full-screen {
+  background-color:#31C0CC;
+}
+
+body:-moz-full-screen {
+  background-color:#31C0CC;
+}
