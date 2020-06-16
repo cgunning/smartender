@@ -49,7 +49,6 @@ class rgbled:
         self.speed = speed
 
     def changeto(self,redv,greenv,bluev,speed):
-        GPIO.setwarnings(False)
         r = redv
         g = greenv
         b = bluev
