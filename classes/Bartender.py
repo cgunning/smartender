@@ -4,8 +4,9 @@ from classes import Pump
 from classes import rgbled
 
 class Bartender:
+    pumpConfigFile = "config/pump_config.json"
     led = rgbled.rgbled(17,27,22)
-    pumpConfig = json.load(open("config/pump_config.json"))
+    pumpConfig = json.load(open(pumpConfigFile))
     drinkList = None
     drinkOptions = None
     loadedIngredients = None
@@ -47,10 +48,14 @@ class Bartender:
     
     def updatePumpDrink(self, pumpId, drink):
         self.pumpConfig[pumpId]["value"] = drink
-        # TODO save to file
+        self.savePumpConfig()
         self.populateSupportedDrinks()
         self.setupPumps()
     
+    def savePumpConfig(self):
+        with open(self.pumpConfigFile, 'w') as outfile:
+            json.dump(self.pumpConfig, outfile, indent=2)
+
     def getEstimatedPourTime(self, drinkKey):
         pourTime = 0
         for drink in self.supportedDrinks:
