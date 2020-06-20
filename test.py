@@ -42,5 +42,25 @@ def updatePump():
     bartender.updatePumpDrink(request.json["pump"], request.json["drink"])
     return ""
 
+@app.route('/startpump', methods=['POST'])
+def startPump():
+    bartender.startPump(request.json["pump"])
+    return ""
+
+@app.route('/stoppump', methods=['POST'])
+def stopPump():
+    bartender.stopPump(request.json["pump"])
+    return ""
+
+@app.route('/startallpumps', methods=['POST'])
+def startAllPumps():
+    bartender.startAllPumps()
+    return ""
+
+@app.route('/stopallpumps', methods=['POST'])
+def stopAllPumps():
+    bartender.stopAllPumps()
+    return ""
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0")

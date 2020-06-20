@@ -18,6 +18,12 @@ class Pump:
         t.start()
         return t # returning thread in case we want to wait for it to be done in calling function
 
+    def start(self):
+        GPIO.output(self.pin, GPIO.HIGH)
+
+    def stop(self):
+        GPIO.output(self.pin, GPIO.LOW)
+
     def pourInternal(self, amount):
         GPIO.output(self.pin, GPIO.HIGH)
         print("print poured " + str(amount) + " with a flow rate of " + str(self.flowRate))

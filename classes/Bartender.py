@@ -70,6 +70,29 @@ class Bartender:
         t = threading.Thread(target=self.pourInternal, args=(drinkKey,))
         t.start()
         return t
+    
+    def startPump(self, pumpId):
+        pumpPin = self.pumpConfig[pumpId]["pin"]
+        for ingredient, pump in self.pumps.items():
+            if pump.pin == pumpPin:
+                pump.start()
+                return
+    
+    def stopPump(self, pumpId):
+        pumpPin = self.pumpConfig[pumpId]["pin"]
+        for ingredient, pump in self.pumps.items():
+            if pump.pin == pumpPin:
+                pump.stop()
+                return
+    
+    
+    def startAllPumps(self):
+        for ingredient, pump in self.pumps.items():
+            pump.start()
+    
+    def stopAllPumps(self):
+        for ingredient, pump in self.pumps.items():
+            pump.stop()
 
     def pourInternal(self, drinkKey):
         drinkFound = False
