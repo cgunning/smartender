@@ -19,6 +19,7 @@ class Bartender:
         self.populateSupportedDrinks()
         self.setupPumps()
         self.led.run()
+        self.stopAllPumps()
 
     def populateSupportedDrinks(self):
         self.supportedDrinks = []

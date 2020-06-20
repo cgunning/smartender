@@ -1,35 +1,66 @@
-from flask import Flask
-#from classes import Led
+import os
+import sys
+import fake_rpi
+
+if 'ENV' in os.environ.keys() and os.environ['ENV'] == "dev":
+    sys.modules['RPi'] = fake_rpi.RPi     # Fake RPi
+    sys.modules['RPi.GPIO'] = fake_rpi.RPi.GPIO # Fake GPIO
+    sys.modules['smbus'] = fake_rpi.smbus # Fake smbus (I2C)
+
+from classes import Bartender
+from drinks import drinkList, drinkOptions
+import json
 import RPi.GPIO as GPIO
-from rgbled import rgbled
-from random import randint
-import time
-import threading
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
 GPIO.setmode(GPIO.BCM)
-led = rgbled(17,27,22)
+bartender = Bartender.Bartender(drinkList, drinkOptions)
 
 
 @app.route("/")
 def hello():
-    return("Hello World!")
+    return "Hello World!"
 
-@app.route("/drink")
-def drink():
+@app.route('/drinks', methods=['GET'])
+def getDrink():
+    return render_template('drinks.html.j2', drinks=bartender.getSupportedDrinks())
 
-    return("drink")
 
-@app.route("/slow")
-def slow():
-    led.setSpeed(0.8)
-    return("slow")
+@app.route('/pour', methods=['POST'])
+def pourDrink():
+    print(request.json["drink"])
+    bartender.pour(request.json["drink"])
+    return str(int(bartender.getEstimatedPourTime(request.json["drink"])))
 
-@app.route("/fast")
-def fast():
-    led.setSpeed(200)
-    return("fast")
+@app.route('/pumps', methods=['GET'])
+def getPumps():
+    return render_template('pumps.html.j2', pumpConfig=bartender.getPumpConfig(), drinkOptions=bartender.getDrinkOptions())
+
+@app.route('/pump', methods=['POST'])
+def updatePump():
+    bartender.updatePumpDrink(request.json["pump"], request.json["drink"])
+    return ""
+
+@app.route('/startpump', methods=['POST'])
+def startPump():
+    bartender.startPump(request.json["pump"])
+    return ""
+
+@app.route('/stoppump', methods=['POST'])
+def stopPump():
+    bartender.stopPump(request.json["pump"])
+    return ""
+
+@app.route('/startallpumps', methods=['POST'])
+def startAllPumps():
+    bartender.startAllPumps()
+    return ""
+
+@app.route('/stopallpumps', methods=['POST'])
+def stopAllPumps():
+    bartender.stopAllPumps()
+    return ""
 
 if __name__ == "__main__":
-    led.run()
     app.run(host="0.0.0.0")
