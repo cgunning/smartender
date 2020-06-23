@@ -1,6 +1,7 @@
 import os
 import sys
 import fake_rpi
+import time
 
 if 'ENV' in os.environ.keys() and os.environ['ENV'] == "dev":
     sys.modules['RPi'] = fake_rpi.RPi     # Fake RPi
@@ -29,9 +30,11 @@ def getDrink():
 
 @app.route('/pour', methods=['POST'])
 def pourDrink():
-    print(request.json["drink"])
     bartender.pour(request.json["drink"])
-    return str(int(bartender.getEstimatedPourTime(request.json["drink"])))
+    time.sleep(0.1)
+    #print(request.json["drink"])
+    return bartender.drinkjson
+
 
 @app.route('/pumps', methods=['GET'])
 def getPumps():
@@ -61,6 +64,7 @@ def startAllPumps():
 def stopAllPumps():
     bartender.stopAllPumps()
     return ""
+    
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0")

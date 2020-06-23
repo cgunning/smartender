@@ -16,5 +16,3 @@ def drinkGenerator():
         adje = random.choice(adj)
         nou = random.choice(noun)        
         return (adje + " " + nou)
-for i in range(0,10):
-    print(drinkGenerator())

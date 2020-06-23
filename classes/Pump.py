@@ -26,8 +26,8 @@ class Pump:
 
     def pourInternal(self, amount):
         GPIO.output(self.pin, GPIO.HIGH)
-        print("print poured " + str(amount) + " with a flow rate of " + str(self.flowRate))
-        time.sleep(amount/self.flowRate*60)
+        print("print poured " + str(amount[0]) + " with a flow rate of " + str(self.flowRate))
+        time.sleep(amount[0]/self.flowRate*60)
         GPIO.output(self.pin, GPIO.LOW)
 
     def toString(self):

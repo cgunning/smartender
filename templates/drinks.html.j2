@@ -19,7 +19,7 @@ function dialog(text, drink) {
   Swal.fire({
   title: text,
   icon: 'question',
-  text: 'Var det den drinken du ville ha?', 
+  text: 'Var det den här drinken du ville ha?', 
   showCancelButton: true,
   focusConfirm: false,
   confirmButtonText:'Ja!',
@@ -30,6 +30,7 @@ function dialog(text, drink) {
     }
 })
 }
+
 </script>
 <div id="fullscreenbutton" onclick="document.body.requestFullscreen()"></div>
 <div id="scroll-container">
@@ -40,6 +41,7 @@ function dialog(text, drink) {
       <li><span id="{{ drink["key"] }}" onclick='dialog("{{ drink["name"] }}", this)' class="item">{{ drink["name"] }}</span></li>
       {% endfor %}
       <li><span id="random" onclick='dialog("Random drink", this)' class="item">Random drink</span></li>
+      <li><span id="randoming" onclick='dialog("Random Ingredienser", this)' class="item">Random Ingredienser</span></li>
       {% endfor %}
     </ul>
   </div>
@@ -49,6 +51,8 @@ function dialog(text, drink) {
 </script>
 <div id="Progress_Status" hidden> 
   <div id="myprogressBar"></div> 
+</div>
+<div id="Ingredient_Text" hidden>
 </div>
 <div id="Progress_Text" hidden>
 </div>

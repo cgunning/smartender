@@ -2,7 +2,7 @@
   "pump_1": {
     "name": "Pump 1",
     "pin": 24,
-    "flow_rate": 400,
+    "flow_rate": 150,
     "value": "gin"
   },
   "pump_2": {
@@ -14,7 +14,7 @@
   "pump_3": {
     "name": "Pump 3",
     "pin": 25,
-    "flow_rate": 100,
+    "flow_rate": 150,
     "value": "rum"
   },
   "pump_4": {

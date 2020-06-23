@@ -8,6 +8,22 @@
   position: absolute;
 }
 
+#Ingredient_Text{ 
+  width: 30%;
+  margin: auto;
+  top: 10%;
+  left: 36%;
+  height: 40%;
+  position: absolute;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 150%;
+  font-family: 'arial';
+  font-weight: 200;
+  color:#404040;
+  font-size: 120%;
+}
+
 #Progress_Text { 
   width: 50%;
   margin: auto;

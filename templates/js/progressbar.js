@@ -7,7 +7,8 @@ function pour(item) {
   }
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-      update(this.responseText, item.innerHTML)
+      var obj = JSON.parse(this.responseText)
+      update(obj.duration, obj.name, obj.ingredients)
     }
   };
   xhttp.open("POST", "/pour", true);
@@ -66,24 +67,35 @@ function animateRandom() {
   return;
 }
 
-function update(duration, drink) { 
+function update(duration, drink, ingredients) { 
   var element = document.getElementById("myprogressBar");
   var container = document.getElementById("Progress_Status");
   var textContainer = document.getElementById("Progress_Text");
   var menu = document.getElementById("scroll-container");
+  var ingContainer = document.getElementById("Ingredient_Text")
+  var test = "Ingredienser: <BR>";
   menu.hidden = true;
   container.hidden = false;
+  for (x in ingredients) {
+      var amount = ingredients[x][0]
+      amount /= Math.pow(10, 1);
+      amount = Math.round(amount)
+      test += ingredients[x][1] + ": " + amount + " cl<BR>";
+  }
+  ingContainer.innerHTML = test;
   textContainer.innerHTML = drink;
   textContainer.hidden = false;
+  ingContainer.hidden = false;
   var width = 1;
   var identity = setInterval(scene, 10); 
   function scene() { 
-    width+=100/duration/100;  
+    width+=100/duration/100;
     if (width >= 100) { 
       clearInterval(identity); 
       element.style.width = '100%'; 
       container.hidden = true;
       textContainer.hidden = true;
+      ingContainer.hidden = true;
       menu.hidden = false;
     } else { 
       element.style.width = width + '%';  

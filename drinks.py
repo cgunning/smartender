@@ -106,12 +106,13 @@ drinkOptions = [
 	{"name": "Rum", "value": "rum"},
 	{"name": "Vodka", "value": "vodka"},
 	{"name": "Tequila", "value": "tequila"},
-	{"name": "Lemon Juice", "value": "lemon"},
+	{"name": "Citronjuice", "value": "lemon"},
 	{"name": "Tonic Water", "value": "tonic"},
 	{"name": "Triple Sec", "value": "trisec"},
 	{"name": "Apple Schnaps", "value": "appschnaps"},
-	{"name": "Coke", "value": "coke"},
-	{"name": "Orange Juice", "value": "oj"},
-	{"name": "Cranberry Juice", "value": "cj"},
+	{"name": "Peach Schnaps", "value": "peachschnaps"},
+	{"name": "Coca Cola", "value": "coke"},
+	{"name": "Apelsinjuice", "value": "oj"},
+	{"name": "TranbärsJuice", "value": "cj"},
 	{"name": "Margarita Mix", "value": "mmix"}
 ]
