@@ -20,16 +20,26 @@ function dialog(text, drink) {
   title: text,
   icon: 'question',
   text: 'Var det den här drinken du ville ha?', 
+  input: 'checkbox',
+  inputValue: 0,
+  inputPlaceholder:
+    'Hardmode',
   showCancelButton: true,
   focusConfirm: false,
   confirmButtonText:'Ja!',
   cancelButtonText:'Nej'
-}).then((result) => {
+}).then(function(result) {
   if (result.value) {
-    pour(drink)
-    }
+    pour(drink, "hard");
+
+  } else if (result.value === 0) {
+      pour(drink, "soft");
+  } else {
+    console.log(`modal was dismissed by ${result.dismiss}`)
+  }
 })
 }
+
 
 </script>
 <div id="fullscreenbutton" onclick="document.body.requestFullscreen()"></div>

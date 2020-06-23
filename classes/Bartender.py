@@ -2,6 +2,7 @@ import json
 import threading
 import random
 import codecs
+import copy
 from classes import Pump
 from classes import rgbled
 
@@ -67,18 +68,20 @@ class Bartender:
             pourTime = max(pourTime, self.pumps[ingredient].getEstimatedPourTime(amount[0]))
         return pourTime
         
-    def drink2json(self, drink):
+    def drink2json(self, drink2):
         #print(drink)
-        res = json.dumps(drink, indent=4)
+        res = json.dumps(drink2, indent=4)
         global drinkjson 
         self.drinkjson = res
         
     def getDrinkJson(self):
         global drinkjson
-        return str(self.drinkjson)
+        result = self.drinkjson
+        self.drinkjson = ""
+        return str(result)
 
-    def pour(self, drinkKey):
-        t = threading.Thread(target=self.pourInternal, args=(drinkKey,))
+    def pour(self, drinkKey, hard=False):
+        t = threading.Thread(target=self.pourInternal, args=(drinkKey, hard))
         t.start()
         return t
     
@@ -105,35 +108,52 @@ class Bartender:
         for ingredient, pump in self.pumps.items():
             pump.stop()
 
-    def pourInternal(self, drinkKey):
+    def pourInternal(self, drinkKey, hard):
         drinkFound = False
         threads = []
         if drinkKey == "randoming":
-            drink = self.randomIngredients()
-            for ingredient, amount in drink["ingredients"].items():
+            drink2 = self.randomIngredients()
+            for ingredient, amount in drink2["ingredients"].items():
                 for name in self.drinkOptions:
                     if ingredient == name["value"]:
-                        drink["ingredients"][ingredient] = [amount, name["name"]]
-            drink["duration"] = self.getEstimatedPourTime(drink)
-            self.drink2json(drink)
+                        if hard and (ingredient in ("gin", "vodka", "rum", "tequila", "trisec", "appschnapps", "peachschnaps")):
+                            print(ingredient + " har amount " + str(amount))
+                            amount = float(amount)*1.5
+                            drink2["ingredients"][ingredient] = [amount, name["name"]]
+                        else:
+                            drink2["ingredients"][ingredient] = [amount, name["name"]]
+            if hard:
+                drink2["name"] = drink2["name"] + " (HM)"
+            drink2["duration"] = self.getEstimatedPourTime(drink2)
+            self.drink2json(drink2)
             self.led.setSpeed(200)
-            for ingredient, amount in drink["ingredients"].items():
+            for ingredient, amount in drink2["ingredients"].items():
                 print(ingredient + ":")
                 threads.append(self.pumps[ingredient].pour(amount))
             drinkFound = True
         else:   
-            for drink in self.supportedDrinks:
-                if drink["key"] == drinkKey:
-                    for ingredient, amount in drink["ingredients"].items():
+            for drink2 in copy.deepcopy(self.supportedDrinks):
+                print(drink2)
+                if drink2["key"] == drinkKey:
+                    for ingredient, amount in drink2["ingredients"].items():
+                        print(ingredient + " " + str(amount))
                         for name in self.drinkOptions:
                             if ingredient == name["value"]:
-                                drink["ingredients"][ingredient] = [amount, name["name"]]
-                    drink["duration"] = self.getEstimatedPourTime(drink)
-                    self.drink2json(drink)
+                                if hard and (ingredient in ("gin", "vodka", "rum", "tequila", "trisec", "appschnapps", "peachschnaps")):
+                                    print(ingredient + "  har amount " + str(amount))
+                                    amount = float(amount)*1.5
+                                    drink2["ingredients"][ingredient] = [amount, name["name"]]
+                                else:
+                                    drink2["ingredients"][ingredient] = [amount, name["name"]]
+                    if hard:
+                        drink2["name"] = drink2["name"] + " (HM)"
+                    drink2["duration"] = self.getEstimatedPourTime(drink2)
+                    self.drink2json(drink2)
                     self.led.setSpeed(200)
-                    for ingredient, amount in drink["ingredients"].items():
+                    for ingredient, amount in drink2["ingredients"].items():
                         print(ingredient + ":")
                         threads.append(self.pumps[ingredient].pour(amount))
+                    drink2 = None
                     drinkFound = True
                     break
         for thread in threads:

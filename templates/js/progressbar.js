@@ -1,8 +1,15 @@
-function pour(item) {
+function pour(item, hard) {
   var xhttp = new XMLHttpRequest();
   var drink = item.id;
+  var tar = ""
+  var mode = hard
+  if (mode == "hard") {
+      tar = "/pourhard"
+  } else {
+      tar = "/pour"
+  }
   if (drink == "random") {
-    animateRandom();
+    animateRandom(hard);
     return;
   }
   xhttp.onreadystatechange = function() {
@@ -11,12 +18,12 @@ function pour(item) {
       update(obj.duration, obj.name, obj.ingredients)
     }
   };
-  xhttp.open("POST", "/pour", true);
+  xhttp.open("POST", tar, true);
   xhttp.setRequestHeader("Content-Type", "application/json")
   xhttp.send(JSON.stringify({"drink": drink}));
 }
 
-function animateRandom() {
+function animateRandom(hard) {
   var scrollUl = document.getElementById('ul-scroll');
   var items = [].slice.call(scrollUl.querySelectorAll('li'));
   var index = Math.floor(Math.random()*items.length)
@@ -44,7 +51,7 @@ function animateRandom() {
       console.log("Slowing down")
       if (moved >= target) {
         setTimeout(function(){
-          pour(drinkElement);
+          pour(drinkElement, hard);
         }, 1000);
         clearInterval(identity);
         return; 
