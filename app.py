@@ -32,16 +32,13 @@ def getDrink():
 def pourDrink():
     bartender.pour(request.json["drink"])
     time.sleep(0.1)
-    #print(request.json["drink"])
     return bartender.getDrinkJson()
     
 @app.route('/pourhard', methods=['POST'])
 def pourHard():
     bartender.pour(request.json["drink"], True)
     time.sleep(0.1)
-    #print(request.json["drink"])
     return bartender.getDrinkJson()
-
 
 @app.route('/pumps', methods=['GET'])
 def getPumps():
@@ -72,6 +69,5 @@ def stopAllPumps():
     bartender.stopAllPumps()
     return ""
     
-
 if __name__ == "__main__":
     app.run(host="0.0.0.0")

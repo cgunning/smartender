@@ -7,14 +7,16 @@
 {% include 'css/progressbar.css' %}
 {% include 'css/drinks.css' %}
 </style>
+
 <script>
 {% include 'js/progressbar.js' %}
 </script>
+
 </head>
 <body>
+
 <script>
 {% include 'js/sweetalert2.all.min.js' %}
-
 function dialog(text, drink) {
   Swal.fire({
   title: text,
@@ -39,9 +41,8 @@ function dialog(text, drink) {
   }
 })
 }
-
-
 </script>
+
 <div id="fullscreenbutton" onclick="document.body.requestFullscreen()"></div>
 <div id="scroll-container">
   <div class="wrap-container" id="wrap-scroll">
@@ -56,9 +57,11 @@ function dialog(text, drink) {
     </ul>
   </div>
 </div>
+
 <script>
 {% include 'js/menu.js' %}
 </script>
+
 <div id="Progress_Status" hidden> 
   <div id="myprogressBar"></div> 
 </div>
