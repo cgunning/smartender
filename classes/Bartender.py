@@ -3,6 +3,8 @@ import threading
 import random
 import codecs
 import copy
+import addeddrinks
+from importlib import reload  
 from classes import Pump
 from classes import rgbled
 
@@ -17,13 +19,17 @@ class Bartender:
     pumps = {}
     global drinkjson 
 
-    def __init__(self, drinkList, drinkOptions):
+    def __init__(self, drinkList, drinkList2, drinkOptions):
         self.drinkList = drinkList
+        self.drinkList2 = drinkList2
+        self.tempDrinks =[]
         self.drinkOptions = drinkOptions
         self.populateSupportedDrinks()
         self.setupPumps()
         self.led.run()
         self.stopAllPumps()
+        self.initateAddedDrinks()
+        
 
     def populateSupportedDrinks(self):
         self.supportedDrinks = []
@@ -36,10 +42,29 @@ class Bartender:
                     break
             if supportedDrink:
                 self.supportedDrinks.append(drink)
+        for drink in self.drinkList2:
+            supportedDrink = True
+            for ingredient in drink["ingredients"].keys():
+                if not ingredient in loadedIngredients:
+                    supportedDrink = False
+                    break
+            if supportedDrink:
+                self.supportedDrinks.append(drink)
         print(loadedIngredients)
 
     def getSupportedDrinks(self):
         return self.supportedDrinks
+        
+    def populateRandomDrinks(self):
+        adDrinks = []
+        for drink in addeddrinks.addedDrinks:
+            adDrinks.append(drink)
+        return adDrinks
+    
+    def getAddedDrinks(self):
+        reload(addeddrinks)
+        return self.populateRandomDrinks()
+        
 
     def getPumpConfig(self):
         return self.pumpConfig
@@ -151,6 +176,32 @@ class Bartender:
             thread.join()
         self.led.setSpeed(0.8)
         return drinkFound
+        
+    def initateAddedDrinks(self):
+        f = open("addeddrinks.py", "w")
+        str = '''addedDrinks= [
+{
+    "name": "Filled Diamond",
+    "ingredients": {
+        "gin": 32,
+        "rum": 10,
+        "vodka": 10
+    },
+    "key": "fd"
+}
+]'''
+        f.write(str)
+        
+    def addDrinkToList(self, drink):
+        drink = drink.replace("\'", "\"")
+        parsed = json.loads(drink)
+        drinksfile = open("drinks2.py", "r")
+        lines = drinksfile.readlines()
+        lines[0] += (json.dumps(parsed, indent=4) + ",\n")
+        drinksfile = open("drinks2.py", "w")
+        drinksfile.writelines(lines)
+
+        drinksfile.close()
     
     def drinkGenerator(self):
         result = []
@@ -201,8 +252,11 @@ class Bartender:
         for i in range(len(key)):
             newkey += key[i][:1].lower()
         newdrink["key"] = newkey 
-        f = open("createddrinks.json","a+")
-        f.write(json.dumps(newdrink, indent=4) + "\n")
+        f = open("addeddrinks.py","r")
+        lines = f.readlines()
+        lines[0] += (json.dumps(newdrink, indent=4) + ",\n")
+        f = open("addeddrinks.py", "w")
+        f.writelines(lines)
         f.close()
         return newdrink
         

@@ -10,13 +10,14 @@ if 'ENV' in os.environ.keys() and os.environ['ENV'] == "dev":
 
 from classes import Bartender
 from drinks import drinkList, drinkOptions
+from drinks2 import drinkList2
 import json
 import RPi.GPIO as GPIO
 from flask import Flask, render_template, request
 
 app = Flask(__name__)
 GPIO.setmode(GPIO.BCM)
-bartender = Bartender.Bartender(drinkList, drinkOptions)
+bartender = Bartender.Bartender(drinkList, drinkList2, drinkOptions)
 
 
 @app.route("/")
@@ -27,6 +28,16 @@ def hello():
 def getDrink():
     return render_template('drinks.html.j2', drinks=bartender.getSupportedDrinks())
 
+@app.route('/addrinks', methods=['GET'])
+def getAddedDrinks():
+    print(bartender.getAddedDrinks())
+    return render_template('addrinks.html.j2', drinks=bartender.getAddedDrinks())
+
+@app.route('/add', methods=['POST'])
+def addDrink():
+    print(request.json["drink"])
+    bartender.addDrinkToList(request.json["drink"])
+    return "Ok"
 
 @app.route('/pour', methods=['POST'])
 def pourDrink():
