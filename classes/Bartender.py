@@ -181,13 +181,13 @@ class Bartender:
         f = open("addeddrinks.py", "w")
         str = '''addedDrinks= [
 {
-    "name": "Filled Diamond",
+    "name": "Test",
     "ingredients": {
-        "gin": 32,
-        "rum": 10,
-        "vodka": 10
+        "gin": 1,
+        "rum": 1,
+        "vodka": 1
     },
-    "key": "fd"
+    "key": "test"
 }
 ]'''
         f.write(str)

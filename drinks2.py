@@ -1,11 +1,10 @@
 drinkList2= [
 {
-    "name": "Reciprocal Toothbrush",
+    "name": "Cubata",
     "ingredients": {
-        "oj": 156,
-        "tonic": 144,
-        "vodka": 67
+        "gin": 50,
+        "coke": 300
     },
-    "key": "rt"
+    "key": "cb"
 }
 ]
