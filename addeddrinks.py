@@ -1,20 +1,11 @@
 addedDrinks= [
 {
-    "name": "Lucky Soccer",
+    "name": "Test",
     "ingredients": {
-        "gin": 27,
-        "tonic": 92,
-        "vodka": 38
+        "gin": 1,
+        "rum": 1,
+        "vodka": 1
     },
-    "key": "ls"
-},
-{
-    "name": "Filled Diamond",
-    "ingredients": {
-        "gin": 32,
-        "rum": 10,
-        "vodka": 10
-    },
-    "key": "fd"
+    "key": "test"
 }
 ]

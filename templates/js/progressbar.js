@@ -28,7 +28,7 @@ function animateRandom(hard) {
   var items = [].slice.call(scrollUl.querySelectorAll('li'));
   var index = Math.floor(Math.random()*items.length)
   var drinkElement = items[index].getElementsByTagName("span")[0];
-  while (drinkElement.id == "random") {
+  while (drinkElement.id == "random" || drinkElement.id == "randoming") {
     index = Math.floor(Math.random()*items.length)
     drinkElement = items[index].getElementsByTagName("span")[0];
   }
